@@ -6,7 +6,11 @@
  * back to our EvaluatedHand / HandRank types.
  */
 
-import { Hand } from 'pokersolver';
+import pokersolver from 'pokersolver';
+const { Hand } = pokersolver;
+
+type SolvedHand = ReturnType<typeof Hand.solve>;
+
 import {
   type Card,
   type EvaluatedHand,
@@ -18,7 +22,7 @@ import {
  * pokersolver: 1=HighCard … 9=StraightFlush. Royal Flush is a
  * StraightFlush whose `descr` starts with "Royal Flush".
  */
-function toHandRank(solvedHand: Hand): HandRank {
+function toHandRank(solvedHand: SolvedHand): HandRank {
   if (solvedHand.descr.startsWith('Royal Flush')) {
     return HandRank.ROYAL_FLUSH;
   }
@@ -70,7 +74,7 @@ export function compareHands(
   evaluations: Map<string, EvaluatedHand>;
 } {
   const evaluations = new Map<string, EvaluatedHand>();
-  const solvedByPlayer = new Map<string, Hand>();
+  const solvedByPlayer = new Map<string, SolvedHand>();
 
   for (const { playerId, holeCards } of hands) {
     const allCards = [...holeCards, ...communityCards];
