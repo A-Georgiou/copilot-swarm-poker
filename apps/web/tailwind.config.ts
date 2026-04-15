@@ -25,6 +25,8 @@ const config: Config = {
         },
         poker: {
           bg: "#0f1318",
+          surface: "#1a1f2e",
+          accent: "#d4af37",
         },
       },
     },
